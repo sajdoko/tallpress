@@ -1,0 +1,29 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 5
+    paths:
+        - src
+        - config
+        - database
+    tmpDir: build/phpstan
+    checkOctaneCompatibility: true
+    checkModelProperties: true
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # Livewire's layout() method on views
+        - '#Call to an undefined method Illuminate\\View\\View::layout\(\)#'
+        # HTMLPurifier is optional dependency
+        - '#on an unknown class HTMLPurifier#'
+        - '#Instantiated class HTMLPurifier not found#'
+        # Dynamic author model configured at runtime
+        -
+            message: '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$(id|name|email)#'
+            path: src/Http/Resources/PostResource.php
+        -
+            message: '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$name#'
+            path: src/Livewire/Forms/PostForm.php
+        -
+            message: '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$id#'
+            path: src/Models/ActivityLog.php
