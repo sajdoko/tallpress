@@ -7,6 +7,7 @@ use Livewire\Component;
 class SearchWidget extends Component
 {
     public string $query = '';
+
     public string $search = '';
 
     public bool $searchEnabled = true;
