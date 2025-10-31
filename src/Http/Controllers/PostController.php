@@ -2,9 +2,9 @@
 
 namespace Sajdoko\TallPress\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Sajdoko\TallPress\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController
 {
