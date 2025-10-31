@@ -1,4 +1,4 @@
-# Laravel TallPress Blog Package
+# TallPress - Laravel Blog Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sajdoko/tallpress.svg?style=flat-square)](https://packagist.org/packages/sajdoko/tallpress)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/sajdoko/tallpress/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/sajdoko/tallpress/actions?query=workflow%3Arun-tests+branch%3Amain)

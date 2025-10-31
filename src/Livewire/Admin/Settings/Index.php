@@ -56,6 +56,21 @@ class Index extends Component
 
     public $activity_log_keep_days;
 
+    // Social Share settings
+    public $social_share_enabled;
+
+    public $social_share_facebook;
+
+    public $social_share_twitter;
+
+    public $social_share_linkedin;
+
+    public $social_share_reddit;
+
+    public $social_share_whatsapp;
+
+    public $social_share_email;
+
     public $activeTab = 'general';
 
     // Track saving state for user feedback
@@ -86,6 +101,13 @@ class Index extends Component
             'revisions_keep' => 'required|integer|min:1|max:50',
             'activity_log_enabled' => 'boolean',
             'activity_log_keep_days' => 'required|integer|min:1|max:365',
+            'social_share_enabled' => 'boolean',
+            'social_share_facebook' => 'boolean',
+            'social_share_twitter' => 'boolean',
+            'social_share_linkedin' => 'boolean',
+            'social_share_reddit' => 'boolean',
+            'social_share_whatsapp' => 'boolean',
+            'social_share_email' => 'boolean',
         ];
     }
 
@@ -124,6 +146,14 @@ class Index extends Component
 
         $this->activity_log_enabled = $settingsService->get('activity_log_enabled', true);
         $this->activity_log_keep_days = $settingsService->get('activity_log_keep_days', 90);
+
+        $this->social_share_enabled = $settingsService->get('social_share_enabled', false);
+        $this->social_share_facebook = $settingsService->get('social_share_facebook', true);
+        $this->social_share_twitter = $settingsService->get('social_share_twitter', true);
+        $this->social_share_linkedin = $settingsService->get('social_share_linkedin', true);
+        $this->social_share_reddit = $settingsService->get('social_share_reddit', false);
+        $this->social_share_whatsapp = $settingsService->get('social_share_whatsapp', false);
+        $this->social_share_email = $settingsService->get('social_share_email', true);
     }
 
     public function setActiveTab($tab)
@@ -216,6 +246,14 @@ class Index extends Component
 
             'activity_log_enabled' => ['type' => 'boolean', 'group' => 'activity_log'],
             'activity_log_keep_days' => ['type' => 'integer', 'group' => 'activity_log'],
+
+            'social_share_enabled' => ['type' => 'boolean', 'group' => 'social_share'],
+            'social_share_facebook' => ['type' => 'boolean', 'group' => 'social_share'],
+            'social_share_twitter' => ['type' => 'boolean', 'group' => 'social_share'],
+            'social_share_linkedin' => ['type' => 'boolean', 'group' => 'social_share'],
+            'social_share_reddit' => ['type' => 'boolean', 'group' => 'social_share'],
+            'social_share_whatsapp' => ['type' => 'boolean', 'group' => 'social_share'],
+            'social_share_email' => ['type' => 'boolean', 'group' => 'social_share'],
         ];
 
         return $metadata[$propertyName] ?? null;
@@ -254,6 +292,14 @@ class Index extends Component
 
             'activity_log_enabled' => ['value' => $this->activity_log_enabled, 'type' => 'boolean', 'group' => 'activity_log'],
             'activity_log_keep_days' => ['value' => $this->activity_log_keep_days, 'type' => 'integer', 'group' => 'activity_log'],
+
+            'social_share_enabled' => ['value' => $this->social_share_enabled, 'type' => 'boolean', 'group' => 'social_share'],
+            'social_share_facebook' => ['value' => $this->social_share_facebook, 'type' => 'boolean', 'group' => 'social_share'],
+            'social_share_twitter' => ['value' => $this->social_share_twitter, 'type' => 'boolean', 'group' => 'social_share'],
+            'social_share_linkedin' => ['value' => $this->social_share_linkedin, 'type' => 'boolean', 'group' => 'social_share'],
+            'social_share_reddit' => ['value' => $this->social_share_reddit, 'type' => 'boolean', 'group' => 'social_share'],
+            'social_share_whatsapp' => ['value' => $this->social_share_whatsapp, 'type' => 'boolean', 'group' => 'social_share'],
+            'social_share_email' => ['value' => $this->social_share_email, 'type' => 'boolean', 'group' => 'social_share'],
         ];
 
         $this->settingsService->setMany($settings);

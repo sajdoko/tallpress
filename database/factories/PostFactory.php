@@ -28,7 +28,7 @@ class PostFactory extends Factory
             'author_id' => null, // Should be set when creating
             'featured_image' => $featuredImage,
             'meta' => [
-                'views' => fake()->numberBetween(0, 10000),
+                'views' => 0, // Start with 0 views for clean testing
                 'read_time' => fake()->numberBetween(1, 15),
             ],
         ];
@@ -48,6 +48,16 @@ class PostFactory extends Factory
             'status' => 'draft',
             'published_at' => null,
         ]);
+    }
+
+    public function withRandomViews(): static
+    {
+        return $this->state(function (array $attributes) {
+            $meta = $attributes['meta'] ?? [];
+            $meta['views'] = fake()->numberBetween(100, 10000);
+
+            return ['meta' => $meta];
+        });
     }
 
     /**

@@ -69,6 +69,10 @@
                         class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'activity_log' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
                     Activity Log
                 </button>
+                <button wire:click="setActiveTab('social_share')"
+                        class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'social_share' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                    Social Sharing
+                </button>
             </nav>
         </div>
 
@@ -406,6 +410,106 @@
                     </div>
                     @error('activity_log_keep_days') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     <p class="text-sm text-gray-500 mt-1">Number of days to retain activity logs before cleanup</p>
+                </div>
+            </div>
+            @endif
+
+            <!-- Social Sharing Settings Tab -->
+            @if($activeTab === 'social_share')
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold mb-4">Social Sharing Settings</h3>
+
+                <div>
+                    <label class="flex items-center">
+                        <input type="checkbox" wire:model.live="social_share_enabled" class="form-checkbox">
+                        <span class="ml-2">Enable Social Sharing</span>
+                        <span wire:dirty wire:target="social_share_enabled"
+                              class="ml-2 text-yellow-600 text-xs font-medium">
+                            (Unsaved)
+                        </span>
+                    </label>
+                    <p class="text-sm text-gray-500 mt-1 ml-6">Display social share buttons on blog posts</p>
+                </div>
+
+                @if($social_share_enabled)
+                <div class="ml-6 pl-4 border-l-2 border-gray-200 space-y-3">
+                    <p class="text-sm font-medium text-gray-700 mb-3">Select which platforms to enable:</p>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" wire:model.live="social_share_facebook" class="form-checkbox">
+                            <span class="ml-2">Facebook</span>
+                            <span wire:dirty wire:target="social_share_facebook"
+                                  class="ml-2 text-yellow-600 text-xs font-medium">
+                                (Unsaved)
+                            </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" wire:model.live="social_share_twitter" class="form-checkbox">
+                            <span class="ml-2">Twitter (X)</span>
+                            <span wire:dirty wire:target="social_share_twitter"
+                                  class="ml-2 text-yellow-600 text-xs font-medium">
+                                (Unsaved)
+                            </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" wire:model.live="social_share_linkedin" class="form-checkbox">
+                            <span class="ml-2">LinkedIn</span>
+                            <span wire:dirty wire:target="social_share_linkedin"
+                                  class="ml-2 text-yellow-600 text-xs font-medium">
+                                (Unsaved)
+                            </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" wire:model.live="social_share_reddit" class="form-checkbox">
+                            <span class="ml-2">Reddit</span>
+                            <span wire:dirty wire:target="social_share_reddit"
+                                  class="ml-2 text-yellow-600 text-xs font-medium">
+                                (Unsaved)
+                            </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" wire:model.live="social_share_whatsapp" class="form-checkbox">
+                            <span class="ml-2">WhatsApp</span>
+                            <span wire:dirty wire:target="social_share_whatsapp"
+                                  class="ml-2 text-yellow-600 text-xs font-medium">
+                                (Unsaved)
+                            </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" wire:model.live="social_share_email" class="form-checkbox">
+                            <span class="ml-2">Email</span>
+                            <span wire:dirty wire:target="social_share_email"
+                                  class="ml-2 text-yellow-600 text-xs font-medium">
+                                (Unsaved)
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                @endif
+
+                <div class="bg-blue-50 border border-blue-200 rounded p-4 mt-6">
+                    <p class="text-sm text-blue-900">
+                        <svg class="inline h-4 w-4 text-blue-600 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        <strong>Tip:</strong> Social share buttons will appear at the end of each blog post, allowing readers to easily share your content on their preferred platforms.
+                    </p>
                 </div>
             </div>
             @endif

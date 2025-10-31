@@ -57,6 +57,7 @@ class TallPressSeeder extends Seeder
             // Create published posts
             Post::factory(15)
                 ->published()
+                ->withRandomViews()
                 ->create(['author_id' => $author->id])
                 ->each(function ($post) use ($categories, $tags) {
                     // Attach random categories

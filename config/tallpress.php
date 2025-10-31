@@ -159,4 +159,21 @@ return [
         'enabled' => true,
         'keep_days' => 90,  // Days to keep activity logs
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Social Sharing
+    |--------------------------------------------------------------------------
+    */
+    'social_share' => [
+        'enabled' => false,
+        'platforms' => [
+            'facebook' => true,
+            'twitter' => true,
+            'linkedin' => true,
+            'reddit' => false,
+            'whatsapp' => false,
+            'email' => true,
+        ],
+    ],
 ];

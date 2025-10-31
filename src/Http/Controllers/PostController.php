@@ -25,6 +25,23 @@ class PostController
 
         $post->load($relationships);
 
+        // Increment views count (only once per session)
+        $this->trackPostView($post);
+
         return view('tallpress::front.show', compact('post'));
+    }
+
+    /**
+     * Track a post view (once per session).
+     */
+    protected function trackPostView(Post $post): void
+    {
+        $sessionKey = "blog_post_viewed_{$post->id}";
+
+        // Only increment if not already viewed in this session
+        if (! session()->has($sessionKey)) {
+            $post->incrementViews();
+            session()->put($sessionKey, true);
+        }
     }
 }

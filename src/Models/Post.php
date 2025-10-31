@@ -264,4 +264,23 @@ class Post extends Model
     {
         return $this->status === 'pending';
     }
+
+    /**
+     * Get the views count from meta field.
+     */
+    public function getViewsCountAttribute(): int
+    {
+        return (int) ($this->meta['views'] ?? 0);
+    }
+
+    /**
+     * Increment the views count for this post.
+     */
+    public function incrementViews(): void
+    {
+        $meta = $this->meta ?? [];
+        $meta['views'] = ($meta['views'] ?? 0) + 1;
+        $this->meta = $meta;
+        $this->save();
+    }
 }

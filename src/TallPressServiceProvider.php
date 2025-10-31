@@ -86,17 +86,24 @@ class TallPressServiceProvider extends ServiceProvider
             ]);
         }
 
-        // Register Livewire components
-        $this->registerLivewireComponents();
-
-        // Register routes
-        $this->registerRoutes();
-
-        // Serve package assets if not published (for development)
-        $this->servePackageAssets();
-
-        // Register middleware
+        // Register middleware first (no dependencies)
         $this->registerMiddleware();
+
+        // Skip Livewire-dependent registrations during package discovery
+        // Check if we're specifically running the package:discover command
+        $isPackageDiscovery = $this->app->runningInConsole() &&
+                               isset($_SERVER['argv']) &&
+                               in_array('package:discover', $_SERVER['argv']);
+
+        if (! $isPackageDiscovery) {
+            // Defer these registrations until after all providers are booted
+            // This ensures Livewire is available when route files with Livewire component imports are loaded
+            $this->app->booted(function () {
+                $this->registerLivewireComponents();
+                $this->registerRoutes();
+                $this->servePackageAssets();
+            });
+        }
 
         // Register gates
         $this->registerGates();
