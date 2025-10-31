@@ -134,7 +134,7 @@
                         <ul class="space-y-2">
                             @foreach($categories as $category)
                             <li class="flex items-center justify-between text-sm">
-                                <a href="{{ route('tallpress.posts.index') }}?category={{ $category->slug }}" class="text-gray-700 hover:text-blue-600 transition-colors">
+                                <a href="{{ route('tallpress.posts.results') }}?category={{ $category->slug }}" class="text-gray-700 hover:text-blue-600 transition-colors">
                                     {{ $category->name }}
                                 </a>
                                 <span class="text-gray-500 text-xs">{{ $category->posts_count }}</span>
@@ -157,7 +157,7 @@
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Popular Tags</h3>
                         <div class="flex flex-wrap gap-2">
                             @foreach($tags as $tag)
-                            <a href="{{ route('tallpress.posts.index') }}?tag={{ $tag->slug }}" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-blue-100 hover:text-blue-800 transition-colors">
+                            <a href="{{ route('tallpress.posts.results') }}?tag={{ $tag->slug }}" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-blue-100 hover:text-blue-800 transition-colors">
                                 {{ $tag->name }}
                                 <span class="ml-1.5 text-gray-500">{{ $tag->posts_count }}</span>
                             </a>

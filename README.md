@@ -18,6 +18,9 @@ Complete documentation is available in the [**Wiki**](https://github.com/sajdoko
 - **[Styling & Assets](https://github.com/sajdoko/tallpress/wiki/Styling-and-Assets)** - Customizing styles and working with assets
 - **[Contributing](https://github.com/sajdoko/tallpress/wiki/Contributing)** - Development workflow and testing
 
+
+![Public Blog Interface](https://raw.githubusercontent.com/wiki/sajdoko/tallpress/assets/images/blog_hero.webp)
+
 ## Features
 
 ### Content Management

@@ -24,7 +24,7 @@ class SearchWidget extends Component
             return;
         }
 
-        $this->redirect(route('tallpress.posts.index', ['q' => $this->search]), navigate: true);
+        $this->redirect(route('tallpress.posts.results', ['q' => $this->search]), navigate: true);
     }
 
     public function render()
