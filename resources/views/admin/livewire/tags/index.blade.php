@@ -32,12 +32,6 @@
                             <input type="text" wire:model="slug" class="form-input">
                             @error('slug') <span class="error">{{ $message }}</span> @enderror
                         </div>
-
-                        <div class="md:col-span-2">
-                            <label class="form-label">Description</label>
-                            <textarea wire:model="description" rows="3" class="form-input"></textarea>
-                            @error('description') <span class="error">{{ $message }}</span> @enderror
-                        </div>
                     </div>
 
                     <div class="mt-4">
@@ -59,7 +53,6 @@
                         <th>Name</th>
                         <th>Slug</th>
                         <th>Posts Count</th>
-                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -69,13 +62,12 @@
                             <td class="font-medium">{{ $tag->name }}</td>
                             <td><code>{{ $tag->slug }}</code></td>
                             <td>{{ $tag->posts_count }}</td>
-                            <td>{{ Str::limit($tag->description, 50) }}</td>
                             <td>
                                 <div class="flex space-x-2">
                                     <button wire:click="editTag({{ $tag->id }})" class="btn btn-xs btn-secondary">
                                         Edit
                                     </button>
-                                    <button wire:click="deleteTag({{ $tag->id }})" 
+                                    <button wire:click="deleteTag({{ $tag->id }})"
                                             wire:confirm="Are you sure you want to delete this tag? This action cannot be undone."
                                             class="btn btn-xs btn-danger">
                                         Delete

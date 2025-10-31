@@ -41,6 +41,9 @@
     {{-- Load tallpress assets from package public directory --}}
     <link href="{{ asset('vendor/tallpress/css/tallpress-frontend.css') }}" rel="stylesheet">
 
+    {{-- Livewire Styles --}}
+    @livewireStyles
+
     @stack('styles')
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -86,31 +89,14 @@
                 @endif
 
                 @yield('content')
+                {{ $slot ?? '' }}
             </main>
 
             {{-- Sidebar --}}
             <aside class="lg:w-80 flex-shrink-0">
                 <div class="space-y-6">
-                    {{-- Search Widget --}}
-                    @if(tallpress_setting('search_enabled', true))
-                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Search</h3>
-                        <form method="GET" action="{{ route('tallpress.posts.index') }}">
-                            <div class="relative">
-                                <input 
-                                    type="text" 
-                                    name="search" 
-                                    placeholder="Search posts..." 
-                                    value="{{ request('search') }}"
-                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                >
-                                <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                        </form>
-                    </div>
-                    @endif
+                    {{-- Search Widget - Livewire Component --}}
+                    @livewire('tallpress-search-widget')
 
                     {{-- Recent Posts Widget --}}
                     @php
@@ -234,6 +220,9 @@
     </footer>
 
     <script type="module" src="{{ asset('vendor/tallpress/js/tallpress-frontend.js') }}"></script>
+
+    {{-- Livewire Scripts --}}
+    @livewireScripts
 
     @stack('scripts')
 </body>

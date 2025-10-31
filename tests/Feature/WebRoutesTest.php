@@ -20,8 +20,8 @@ it('displays blog index page', function () {
     $response = $this->get(route('tallpress.posts.index'));
 
     $response->assertStatus(200);
-    $response->assertViewIs('tallpress::index');
-    $response->assertViewHas('posts');
+    // Now using Livewire component instead of controller view
+    $response->assertSeeLivewire('tallpress-search');
 });
 
 it('displays single post page', function () {
@@ -30,7 +30,7 @@ it('displays single post page', function () {
     $response = $this->get(route('tallpress.posts.show', $post->slug));
 
     $response->assertStatus(200);
-    $response->assertViewIs('tallpress::show');
+    $response->assertViewIs('tallpress::front.show');
     $response->assertSee($post->title);
 });
 
@@ -46,14 +46,12 @@ it('search filters posts', function () {
         'author_id' => $this->user->id,
     ]);
 
-    $response = $this->get(route('tallpress.posts.index', ['search' => 'Laravel']));
+    $response = $this->get(route('tallpress.posts.index', ['q' => 'Laravel']));
 
     $response->assertStatus(200);
-    // Laravel Tutorial should appear in main content
+    // Now using Livewire component with 'q' parameter instead of 'search'
+    $response->assertSeeLivewire('tallpress-search');
     $response->assertSee('Laravel Tutorial');
-    // PHP Guide may appear in sidebar "Recent Posts", but shouldn't be in main article list
-    // Just verify we got filtered results
-    expect($response->getContent())->toContain('Laravel Tutorial');
 });
 
 // Note: CRUD routes (create, store, update, destroy) don't exist in web.php

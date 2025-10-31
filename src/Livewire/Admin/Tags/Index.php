@@ -26,8 +26,6 @@ class Index extends Component
 
     public $slug = '';
 
-    public $description = '';
-
     protected $queryString = [
         'search' => ['except' => ''],
     ];
@@ -39,7 +37,6 @@ class Index extends Component
         return [
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:tallpress_tags,slug,'.$tagId,
-            'description' => 'nullable|string',
         ];
     }
 
@@ -59,7 +56,6 @@ class Index extends Component
         $this->editingTag = Tag::findOrFail($tagId);
         $this->name = $this->editingTag->name;
         $this->slug = $this->editingTag->slug;
-        $this->description = $this->editingTag->description ?? '';
         $this->showForm = true;
     }
 
@@ -69,7 +65,6 @@ class Index extends Component
 
         $data = [
             'name' => $this->name,
-            'description' => $this->description,
         ];
 
         if ($this->slug) {
@@ -124,7 +119,6 @@ class Index extends Component
         $this->editingTag = null;
         $this->name = '';
         $this->slug = '';
-        $this->description = '';
         $this->resetValidation();
     }
 
@@ -133,8 +127,7 @@ class Index extends Component
         $query = Tag::withCount('posts');
 
         if ($this->search) {
-            $query->where('name', 'like', '%'.$this->search.'%')
-                ->orWhere('description', 'like', '%'.$this->search.'%');
+            $query->where('name', 'like', '%'.$this->search.'%');
         }
 
         $tags = $query->orderBy('name')->paginate(15);

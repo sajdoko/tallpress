@@ -108,6 +108,11 @@ class TallPressServiceProvider extends PackageServiceProvider
             return;
         }
 
+        // Frontend Components
+        Livewire::component('tallpress-search', \Sajdoko\TallPress\Livewire\Front\Search::class);
+        Livewire::component('tallpress-search-widget', \Sajdoko\TallPress\Livewire\Front\SearchWidget::class);
+        Livewire::component('tallpress-comments', \Sajdoko\TallPress\Livewire\Front\Comments::class);
+
         // Dashboard
         Livewire::component('tallpress.admin.dashboard', \Sajdoko\TallPress\Livewire\Admin\Dashboard::class);
 

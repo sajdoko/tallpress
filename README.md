@@ -1,10 +1,10 @@
-# Sajdoko TallPress Package
+# Laravel TallPress Blog Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sajdoko/tallpress.svg?style=flat-square)](https://packagist.org/packages/sajdoko/tallpress)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/sajdoko/tallpress/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/sajdoko/tallpress/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/sajdoko/tallpress.svg?style=flat-square)](https://packagist.org/packages/sajdoko/tallpress)
 
-A comprehensive, reusable Laravel package that adds complete blog functionality to any Laravel 10+ application. Features include posts with Markdown support, categories, tags, comments, image uploads, search, policies, and a full REST API.
+A comprehensive, reusable Laravel blog package that adds complete blog functionality to any Laravel 10+ application. Features include posts with Markdown support, categories, tags, comments, image uploads, search, policies, and a full REST API.
 
 ## Documentation
 
