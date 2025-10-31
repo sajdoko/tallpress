@@ -4,6 +4,7 @@ namespace Sajdoko\TallPress;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Sajdoko\TallPress\Commands\TallPressCleanCommand;
 use Sajdoko\TallPress\Commands\TallPressInitSettingsCommand;
@@ -20,59 +21,70 @@ use Sajdoko\TallPress\Observers\TagObserver;
 use Sajdoko\TallPress\Policies\MediaPolicy;
 use Sajdoko\TallPress\Policies\PostPolicy;
 use Sajdoko\TallPress\Services\SettingsService;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class TallPressServiceProvider extends PackageServiceProvider
+class TallPressServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function register(): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package
-            ->name('tallpress')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasViewComponents('blog')
-            ->hasTranslations()
-            ->hasCommands([
-                TallPressInstallCommand::class,
-                TallPressCleanCommand::class,
-                TallPressReorganizeImagesCommand::class,
-                TallPressInitSettingsCommand::class,
-            ]);
-    }
-
-    public function packageRegistered(): void
-    {
-        // Load helper functions
-        require_once __DIR__.'/helpers.php';
-
-        // Register publishable assets
-        $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/tallpress'),
-        ], 'tallpress-assets');
-
-        // In development, serve assets from package directory
-        if (app()->environment('local')) {
-            $this->publishes([
-                __DIR__.'/../public' => public_path('vendor/tallpress'),
-            ], 'tallpress-assets');
-        }
+        // Merge package config
+        $this->mergeConfigFrom(__DIR__.'/../config/tallpress.php', 'tallpress');
 
         // Register SettingsService as singleton
         $this->app->singleton(SettingsService::class, function ($app) {
             return new SettingsService;
         });
+
+        // Load helper functions
+        if (file_exists(__DIR__.'/helpers.php')) {
+            require_once __DIR__.'/helpers.php';
+        }
     }
 
-    public function packageBooted(): void
+    public function boot(): void
     {
+        // Publish config
+        $this->publishes([
+            __DIR__.'/../config/tallpress.php' => config_path('tallpress.php'),
+        ], 'tallpress-config');
+
+        // Publish views
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/tallpress'),
+        ], 'tallpress-views');
+
+        // Publish translations
+        $this->publishes([
+            __DIR__.'/../resources/lang' => lang_path('vendor/tallpress'),
+        ], 'tallpress-lang');
+
+        // Publish assets
+        $this->publishes([
+            __DIR__.'/../public' => public_path('vendor/tallpress'),
+        ], 'tallpress-assets');
+
+        // Load views from package
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'tallpress');
+
+        // Load translations from package
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'tallpress');
+
+        // Load view components
+        $this->loadViewComponentsAs('blog', [
+            // Add your view components here if you have any
+        ]);
+
         // Load migrations from package
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        // Register commands
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                TallPressInstallCommand::class,
+                TallPressCleanCommand::class,
+                TallPressReorganizeImagesCommand::class,
+                TallPressInitSettingsCommand::class,
+            ]);
+        }
 
         // Register Livewire components
         $this->registerLivewireComponents();
