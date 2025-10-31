@@ -2,6 +2,17 @@
 
 All notable changes to TallPress will be documented in this file
 
+## v1.2.2 - 2025-10-31
+
+feat: Add social sharing settings and functionality
+
+- Introduced a new settings tab for social sharing in the admin panel.
+- Added options to enable/disable social sharing and select specific platforms (Facebook, Twitter, LinkedIn, Reddit, WhatsApp, Email).
+- Implemented view count tracking for posts, incrementing the count only once per session.
+- Updated post show and index views to display the number of views.
+- Added social share buttons on post show page, conditionally rendered based on settings.
+- Created tests for views count functionality and social sharing features.
+
 ## 1.1.0 - 2025-10-31
 
 feat: Implement comments and search functionality in TallPress
